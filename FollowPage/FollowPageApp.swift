@@ -2,7 +2,7 @@
 //  FollowPageApp.swift
 //  FollowPage
 //
-//  Created by RajayGoms on 7/21/25.
+//  Created by Rajendran Eshwaran on 7/21/25.
 //
 
 import SwiftUI

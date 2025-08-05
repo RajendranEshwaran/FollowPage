@@ -11,7 +11,8 @@ import SwiftUI
 struct FollowPageApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            FitnessHomeAppView()
         }
     }
 }

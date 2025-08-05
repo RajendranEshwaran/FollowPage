@@ -17,22 +17,22 @@ struct FitnessHomeAppView: View {
                     case 0:FitnessHomeView()
                     case 1:JumpsView()
                     case 2:BattleFitView()
-                    case 3:FitnessProfileView()
+                    case 3:FitnessProgressView()
                     case 4:FitnessProfileView()
                     default: FitnessHomeView()
                     }
             }
                 
-                Rectangle()
-                        .fill(.green)
-                        .frame(maxWidth: UIScreen.main.bounds.width, minHeight: 0, maxHeight: 900)
-                        .cornerRadius(50, corners: [.bottomLeft, .bottomRight])
-                        .zIndex(1)
-                        .offset(y: -130)
+//                Rectangle()
+//                        .fill(.green)
+//                        .frame(maxWidth: UIScreen.main.bounds.width, minHeight: 0, maxHeight: 900)
+//                        .cornerRadius(50, corners: [.bottomLeft, .bottomRight])
+//                        .zIndex(1)
+//                        .offset(y: -130)
                         
             }
-//            .containerRelativeFrame([.horizontal, .vertical])
-//            .background(Gradient(colors: [.teal, .cyan, .gray]).opacity(0.6))
+            .containerRelativeFrame([.horizontal, .vertical])
+            .background(Gradient(colors: [.teal, .cyan, .gray]).opacity(0.6))
             .ignoresSafeArea()
 //            .overlay( /// apply a rounded border
 //                RoundedRectangle(cornerRadius: 20)
@@ -41,7 +41,7 @@ struct FitnessHomeAppView: View {
             //.cornerRadius(20, corners: [.bottomLeft, .bottomRight])
             FitnessTabView(selectedTab: $selectedTab)
                 .offset(y: UIScreen.main.bounds.height / 3  + 40)
-                .zIndex(-1)
+                //.zIndex(-1)
         }
     }
 }
@@ -92,8 +92,89 @@ struct JumpsView: View {
 }
 
 struct FitnessProfileView: View {
+    @State private var followerProfile: [FollowerProfileModel] = FollowerProfileModel.profileSample
     var body: some View {
-        ZStack {
+        NavigationStack {
+
+            VStack {
+                Image("profile")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 200)
+                    .clipped()
+                    .clipShape(.circle)
+                    .padding()
+                Text(followerProfile[0].fullName)
+                    .font(.system(size: 17, weight: .bold, design: .default))
+                Text(followerProfile[0].username)
+                    .font(.system(size: 17, weight: .regular, design: .default))
+                
+                HStack {
+                    Image(systemName: "figure.walk.motion")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 30, height: 30)
+                        .clipped()
+                        .padding(.leading, 20)
+                   
+                    Text("2435")
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .padding(.leading, 30)
+                    Spacer()
+                    Text("Steps today")
+                        .font(.system(size: 17, weight: .bold, design: .default))
+                        .foregroundColor(Color.black.opacity(0.6))
+                        .padding()
+                }.frame(maxWidth: .infinity, maxHeight: 80)
+                    .background(Color.teal.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .padding(.horizontal)
+                
+                List {
+                    ForEach(0..<3) { item in
+                        HStack {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.gray)
+                            Spacer()
+                            VStack(alignment: .leading) {
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            
+                .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text("Profile")
+                            .fontWeight(.bold)
+                    })
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(action: {
+                            // Action for the leading button
+                        }) {
+                            Image(systemName: "chevron.backward.chevron.backward.dotted")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            // Action for the trailing button
+                        }) {
+                            Image(systemName: "bubble.and.pencil")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                })
+            
             
         }
     }

@@ -95,20 +95,23 @@ struct FitnessProfileView: View {
     @State private var followerProfile: [FollowerProfileModel] = FollowerProfileModel.profileSample
     var body: some View {
         NavigationStack {
-
+           
             VStack {
-                Image("profile")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 200)
-                    .clipped()
-                    .clipShape(.circle)
-                    .padding()
-                Text(followerProfile[0].fullName)
-                    .font(.system(size: 17, weight: .bold, design: .default))
-                Text(followerProfile[0].username)
-                    .font(.system(size: 17, weight: .regular, design: .default))
-                
+                VStack() {
+                    Image("profile")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                        .clipShape(.circle)
+                        .padding()
+                    Text(followerProfile[0].fullName)
+                        .font(.system(size: 17, weight: .bold, design: .default))
+                    Text(followerProfile[0].username)
+                        .font(.system(size: 17, weight: .regular, design: .default))
+                        
+                }.offset(y: -50)
+                  
                 HStack {
                     Image(systemName: "figure.walk.motion")
                         .resizable()
@@ -125,28 +128,38 @@ struct FitnessProfileView: View {
                         .font(.system(size: 17, weight: .bold, design: .default))
                         .foregroundColor(Color.black.opacity(0.6))
                         .padding()
-                }.frame(maxWidth: .infinity, maxHeight: 80)
+                }.frame(maxWidth: .infinity, maxHeight: 50)
                     .background(Color.teal.opacity(0.5))
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                     .padding(.horizontal)
-                
+                    .offset(y: -40)
                 List {
-                    ForEach(0..<3) { item in
-                        HStack {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.gray)
-                            Spacer()
-                            VStack(alignment: .leading) {
+                    ForEach(ProfileItemList.profileItemList) { item in
+                        NavigationLink(destination: EmptyView(), label: {
+                            HStack {
+                                Image(systemName: item.icon)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.gray)
                                 
-                            }
-                        }
+                                Text(item.item)
+                                    .fontWeight(.semibold)
+                                    .padding(.leading, 10)
+                                Spacer()
+                                VStack(alignment: .leading) {
+                                    
+                                }
+                                .frame(height: 60)
+                            }.background(
+                                RoundedRectangle(cornerRadius: 10.0).fill(.gray.opacity(0.05)))
+                            // ProfileItemList(item: "Sound", icon: "music.note")
+                            .buttonStyle(DefaultListStyle())
+                        })
                     }
                 }
-            }
-            
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                
                 .toolbar(content: {
                     ToolbarItem(placement: .principal, content: {
                         Text("Profile")
@@ -174,9 +187,7 @@ struct FitnessProfileView: View {
                         }
                     }
                 })
-            
-            
-        }
+            }
     }
 }
 
@@ -191,5 +202,29 @@ struct BattleFitView: View {
 struct FitnessProgressView: View {
     var body: some View {
         Text("FitnessProgressView!")
+    }
+}
+
+struct ProfileItemListView: View {
+    @Binding var icon: String
+    @Binding var item: String
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 30, height: 30)
+                .foregroundColor(.gray)
+                
+            Text(item)
+                .fontWeight(.semibold)
+                .padding(.leading, 10)
+            Spacer()
+            VStack(alignment: .leading) {
+                
+            }
+        .frame(height: 60)
+        }.background(
+            RoundedRectangle(cornerRadius: 10.0).fill(.gray.opacity(0.05)))
     }
 }

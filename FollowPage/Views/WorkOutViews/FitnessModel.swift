@@ -44,3 +44,19 @@ enum FitnessTabbarItems: Int, CaseIterable {
         }
     }
 }
+
+struct ProfileItemList : Identifiable {
+    let id = UUID()
+    let item: String
+    let icon: String
+    init(item: String, icon: String) {
+        self.item = item
+        self.icon = icon
+    }
+    
+    static let profileItemList = [ProfileItemList(item: "Friends", icon: "person.3"),
+               ProfileItemList(item: "Statistics", icon: "lines.measurement.horizontal"),
+                ProfileItemList(item: "Academy", icon:"building.columns" ),
+                ProfileItemList(item: "Strenght Log", icon: "figure.strengthtraining.traditional"),
+                ProfileItemList(item: "Sound", icon: "music.note")]
+}
